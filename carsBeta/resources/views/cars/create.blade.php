@@ -37,7 +37,7 @@
 
             <input type="text"
                    class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-800" 
-                   name="desc"
+                   name="description"
                    id=""
                    placeholder="Description...">
 
@@ -47,6 +47,23 @@
             </button>
 
         </form>
+
+
+
+
     </div>
+
+
+    @if ($errors->any())
+    <div class=" m-auto text-center">
+        @foreach ($errors->all() as $item)
+
+            <li class="text-black list-none">
+                {{ $item }}
+            </li>
+            
+        @endforeach
+    </div>  
+    @endif
     
 @endsection
