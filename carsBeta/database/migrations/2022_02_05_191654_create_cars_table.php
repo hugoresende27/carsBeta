@@ -20,6 +20,18 @@ class CreateCarsTable extends Migration
             $table->longText('description');
             $table->timestamps();
         });
+
+        ///TABELE CAR_MODELS RELAÇÃO ONE TO MANY, UMA MARCA DE CARRO PODE TER VÁRIOS MODELOS
+        Schema::create('car_models', function (Blueprint $table){
+            $table->increments('id');
+            $table->unsignedInteger('car_id');
+            $table->string('model_name');
+            $table->timestamps();
+            $table->foreign('car_id')
+                    ->references('id')
+                    ->on('cars')
+                    ->onDelete('cascade');
+        });
     }
 
     /**

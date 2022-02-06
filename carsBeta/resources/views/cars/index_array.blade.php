@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@foreach ($cars as $c)
+
+    {{-- {{  $c->id }} --}}
+
+@endforeach
 
 @section('content')
 
@@ -21,14 +26,14 @@
 
     <div class="py-10 w-5/6">
         <div class="m-auto">
-          
-                @foreach ($cars as $item)
+       
+                @foreach ($cars as $c)
                     <div class="float-right">
-                        <a href="cars/{{ $item->id }}/edit"
+                        <a href="cars//edit"
                            class="border-b-2 border-dotted italic text-green-200"
                            > Edit &rarr; </a>
 
-                           <form action="/cars/{{ $item->id }}" method="POST">
+                           <form action="/cars/" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit"
@@ -41,21 +46,18 @@
             
                 <span class="uppercase text-red-500 font-bold italic">
 
-                    {{ $item->founded }}
+                    {{  $c['name'] }}
 
                 </span>
                 
-                <h2 class="decoration-stone-200 text-5xl hover:text-red-500">
-                    <a href="/cars/{{ $item->id }}">
-                        {{ $item->name }}
-                    </a>
+                <h2 class="decoration-stone-200 text-5xl">
+                    {{  $c['founded'] }}
                 </h2>
-
                 <p class="text-lg text-gray-700 py-6">
-                    {{ $item->description }}
+                    {{  $c['description'] }}
                 </p>
                 <p class="text-lg text-gray-700 py-6">
-                    {{ date('h:i:s'),strtotime($item->created_at) }}
+                    {{  $c['created_at'] }}
                 </p>
 
                 <hr class="mt-4 mb-8">

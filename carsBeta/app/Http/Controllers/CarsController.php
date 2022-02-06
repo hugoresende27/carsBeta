@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Product;
 
 class CarsController extends Controller
 {
@@ -16,7 +17,9 @@ class CarsController extends Controller
     {
 
         //SELECT * FROM cars
-        $cars = Car::all();
+        //$cars = Car::all()->toArray();
+         $cars = Car::all()->toJson();
+         $cars = json_decode($cars);
 
         //apenas name audi
         //$cars = Car::where('name','=','Audi')
@@ -33,7 +36,9 @@ class CarsController extends Controller
         //         print_r($c);
         //     }
         // });
-        
+
+        //var_dump($cars);
+            
         return view('cars.index', [
             'cars'=> $cars
         ]);
@@ -82,8 +87,16 @@ class CarsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {  
+        $car = Car::find($id);
+        //dd($car);
+        //dd($car->engines);
+        //dd($car->dates);
+        //var_dump($car->products);
+
+        $products =  Product::find($id);
+        //print_r($products);
+        return view('cars.show')->with('car',$car);
     }
 
     /**
