@@ -17,5 +17,6 @@ class Car extends Model
 
     //protected $dateFormat = 'h:m:s';
 
+    //protected $fillable = [];
     protected $fillable = ['name', 'founded', 'description'];
 }

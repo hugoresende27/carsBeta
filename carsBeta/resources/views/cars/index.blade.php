@@ -23,7 +23,21 @@
         <div class="m-auto">
             <h1>Lista</h1>
                 @foreach ($cars as $item)
-                    
+                    <div class="float-right">
+                        <a href="cars/{{ $item->id }}/edit"
+                           class="border-b-2 border-dotted italic text-green-200"
+                           > Edit &rarr; </a>
+
+                           <form action="/cars/{{ $item->id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit"
+                                    class="border-b-2  border-dotted italic text-red-200"
+                                    > DELETE &rarr; </button>
+
+                            </form>
+                    </div>
+
             
                 <span class="uppercase text-red-500 font-bold italic">
 

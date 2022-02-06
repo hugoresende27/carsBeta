@@ -72,8 +72,6 @@ class CarsController extends Controller
             
         ]);
       
-
-
         return redirect('/cars');
     }
 
@@ -97,6 +95,10 @@ class CarsController extends Controller
     public function edit($id)
     {
         //
+        //dd($id);
+        $car = Car::find($id);
+        
+        return view ('cars.edit')->with('car',$car);
     }
 
     /**
@@ -108,7 +110,14 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $car = Car::where('id',$id)
+            ->update([
+                'name'=> $request->input('name'),
+                'founded'=> $request->input('founded'),
+                'description'=> $request->input('desc')        
+        ]);
+        return redirect('/cars');
     }
 
     /**
@@ -117,8 +126,22 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    ////FUNÇÃO DESTROY METODO 1////////////////
+    // public function destroy($id)
+    // {
+    //     $car = Car::find($id);
+
+    //     $car->delete();
+
+    //     return redirect ('/cars');
+    // }
+
+    ////FUNÇÃO DESTROY METODO 2////////////////
+    public function destroy(Car $car)
     {
-        //
+
+        $car->delete();
+
+        return redirect ('/cars');
     }
 }
