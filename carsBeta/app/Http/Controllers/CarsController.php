@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Car;
 
 class CarsController extends Controller
 {
@@ -13,7 +14,29 @@ class CarsController extends Controller
      */
     public function index()
     {
-        return view('cars.index');
+
+        //SELECT * FROM cars
+        $cars = Car::all();
+
+        //apenas name audi
+        //$cars = Car::where('name','=','Audi')
+        //->get();
+        //em vez de get() posso usar 
+        //->firstOrFail();
+
+        //$cars = Car::avg('founded');
+
+        //dd($cars);
+
+        // $cars = Car::chunk(2,function ($cars) {
+        //     foreach ($cars as $c){
+        //         print_r($c);
+        //     }
+        // });
+        
+        return view('cars.index', [
+            'cars'=> $cars
+        ]);
     }
 
     /**
@@ -24,6 +47,7 @@ class CarsController extends Controller
     public function create()
     {
         //
+        return view('cars.create');
     }
 
     /**
@@ -35,6 +59,22 @@ class CarsController extends Controller
     public function store(Request $request)
     {
         //
+        //$car = new Car;
+        // $car->name= $request->input('name');
+        // $car->founded= $request->input('founded');
+        // $car->description= $request->input('desc');
+        // $car->save();
+
+        $car = Car::create([
+            'name'=> $request->input('name'),
+            'founded'=> $request->input('founded'),
+            'description'=> $request->input('desc')
+            
+        ]);
+      
+
+
+        return redirect('/cars');
     }
 
     /**

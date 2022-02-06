@@ -8,7 +8,8 @@
     <title>Cars Beta2</title>
 </head>
   
-<body>
+<body class="bg-gradient-to-b from-blue-700 to-blue-500 text-white">
+
     
     @yield('content')
 

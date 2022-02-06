@@ -19,4 +19,4 @@ use App\Http\Controllers\CarsController;
 //     return view('welcome');
 // });
 
-Route::resource('/', CarsController::class);
+Route::resource('cars', CarsController::class);
