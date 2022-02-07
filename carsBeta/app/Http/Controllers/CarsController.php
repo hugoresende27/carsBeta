@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Product;
 use App\Rules\Uppercase;
+use App\Http\Requests\CreateValidationRequest;
 
 class CarsController extends Controller
 {
@@ -62,6 +63,7 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(CreateValidationRequest $request)
     public function store(Request $request)
     {
         //
@@ -71,19 +73,62 @@ class CarsController extends Controller
         // $car->description= $request->input('desc');
         // $car->save();
 
-        $request->validate([
-            'name'=> new Uppercase,
-            'founded'=>'required | integer|min:0|max:2021',
-            'description'=>'required',
-        ]);
+        // $request->validate([
+        //     'name'=> new Uppercase,
+        //     'founded'=>'required | integer|min:1900|max:2022',
+        //     'description'=>'required',
+        // ]);
 
         /// se valido executa
         //// senão é válido thorw ValidationException
 
+
+        //dd($request->all());
+
+
+        ///METODOS QUE POSSO USAR NO REQUEST
+
+        //$test = $request->file('image')->guessExtension();
+        // $test = $request->file('image')->getMimeType();
+
+        //$test = $request->file('image')->store();
+        // $test = $request->file('image')->asStore();
+        // $test = $request->file('image')->storePulicly();
+
+        // $test = $request->file('image')->move();
+        // $test = $request->file('image')->getClientOriginalName();
+         //$test = $request->file('image')->getClientMimeType();
+        // $test = $request->file('image')->guessClientExtension();
+        //  $test = $request->file('image')->getSize();
+        //  $test = $request->file('image')->getError();
+        //  $test = $request->file('image')->isValid();
+
+        // dd($test);
+
+
+
+        $request->validate([
+            'name'=>'required',
+            'founded'=>'required | integer|min:1900|max:2022',
+            'description'=>'required',
+            'image'=>'required|mimes:jpg,png,jpeg|max:5048'
+        ]);
+
+        $newImageName = time().'-'.$request->name.'.'.$request->image->extension();
+
+        //dd($newImageName);
+
+        // $test = $request->image->move(public_path('images'), $newImageName);
+        // dd($test);
+
+        $request->image->move(public_path('images'), $newImageName);
+        
+
         $car = Car::create([
             'name'=> $request->input('name'),
             'founded'=> $request->input('founded'),
-            'description'=> $request->input('description')
+            'description'=> $request->input('description'),
+            'image_path'=>$newImageName
             
         ]);
       
@@ -131,9 +176,18 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateValidationRequest $request, $id)
     {
+        // $request->validate([
+        //     'name'=> new Uppercase,
+        //     'founded'=>'required | integer|min:1900|max:2022',
+        //     'description'=>'required',
+        // ]);
+
         
+
+        $request->validated();
+
         $car = Car::where('id',$id)
             ->update([
                 'name'=> $request->input('name'),

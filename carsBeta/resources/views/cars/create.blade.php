@@ -15,34 +15,62 @@
             Back &larr;
         </a>
         </div>
+        @if ($errors->any())
+        <div class="w-1/2 mt-6  m-auto text-center">
+            @foreach ($errors->all() as $erro)
+    
+                <li class="bg-red-500 text-white list-none text-center">
+                    {{ $erro }}
+                </li>
+                
+            @endforeach
+        </div>  
+        @endif
     </div>
 
- 
 
-    <div class="flex justify-center pt-20 text-black bold">
+    <div class="flex justify-center pt-5 text-black bold">
 
-        <form action="/cars" method="POST">
+        <form action="/cars" method="POST" enctype="multipart/form-data">
             @csrf
+            <label for="image">Image</label>
+            <input type="file"
+                   class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-800" 
+                   name="image"
+                   id="image"
+                   
+                   value={{ old('image') }}
+                   >
+
+            <label for="name">Name</label>
             <input type="text"
                    class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-800" 
                    name="name"
-                   id=""
-                   placeholder="New car...">
+                   id="name"
+                   placeholder="New car..."
+                   value={{ old('name') }}
+                   >
 
+            <label for="founded">Year</label>
             <input type="text"
                    class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-800" 
                    name="founded"
-                   id=""
-                   placeholder="Year...">
+                   id="founded"
+                   placeholder="Year..."
+                   value={{ old('founded') }}
+                   >
 
+            <label for="description">Description</label>
             <input type="text"
                    class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-800" 
                    name="description"
-                   id=""
-                   placeholder="Description...">
+                   id="description"
+                   placeholder="Description..."
+                   value={{ old('description') }}
+                   >
 
             <button type="submit" 
-                    class="bg-green-800 block shadow-5xl mb-10 p-2 w-80 uppercase font-bold rounded-xl">
+                    class="text-white bg-green-800 block shadow-5xl mb-10 p-2 w-80 uppercase font-bold rounded-xl">
                 Submit
             </button>
 
@@ -54,16 +82,6 @@
     </div>
 
 
-    @if ($errors->any())
-    <div class=" m-auto text-center">
-        @foreach ($errors->all() as $item)
-
-            <li class="text-black list-none">
-                {{ $item }}
-            </li>
-            
-        @endforeach
-    </div>  
-    @endif
+  
     
 @endsection

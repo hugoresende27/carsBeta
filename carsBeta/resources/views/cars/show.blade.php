@@ -4,11 +4,18 @@
 
     <div class="m-6 py-24 ">
         <div class="text-center">
+            <img src="{{ asset('images/'.$car->image_path) }}" alt="imagemCarro" class="w-3/12 mb-8 shadow-xl">
             <h1 class="text-5xl uppercase bold ">
                 {{ $car->name }}
             </h1>
         </div>
-    
+        <div class="text-center">
+            <a 
+            href="/cars"
+            class="border-b-2 pb-2 border-dotted italic text-amber-700" >
+            Back &larr;
+            </a>
+        </div>
     <div class="flex justify-center text-white bold text-center">
         <div class="py-10">
             <div class="m-auto bg-red-500">

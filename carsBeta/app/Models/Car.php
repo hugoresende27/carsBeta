@@ -17,11 +17,13 @@ class Car extends Model
 
     //protected $dateFormat = 'h:m:s';
 
-    protected $fillable = ['name', 'founded', 'description'];
+    protected $fillable = ['name', 'founded', 'description','image_path'];
+    //EM VEZ DE $fillable posso usar $guarded = [];
+    //protected $guarded = [];
 
     //protected $hidden = ['id'];
 
-    protected $visible = ['id','name', 'founded', 'created_at','description'];
+    protected $visible = ['id','name', 'founded', 'created_at','description','image_path'];
 
     public function carModels()
     {
